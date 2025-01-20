@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask a Question</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+        }
+        .btn {
+            background-color: #7d5fff;
+            color: white;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ask a Question</h2>
+        <form action="/ask" method="POST">
+            <div class="form-group">
+                <label for="question">Question:</label>
+                <input type="text" name="question" id="question" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if answer %}
+            <div class="mt-4">
+                <h4>Answer:</h4>
+                <p>{{ answer }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

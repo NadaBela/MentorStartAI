@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorStartAi - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f7f9fc;
+        }
+
+        .hero-section {
+            background: linear-gradient(to right, #3b0a45, #000000);
+            color: white;
+            padding: 120px 0;
+        }
+
+        .hero-section h1 {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .service-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .service-card h4 {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .service-card p {
+            color: #666;
+        }
+
+        .cta-section {
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Warm peach gradient */
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+        }
+
+        .cta-section .btn {
+            background: linear-gradient(to right, #3b0a45, #000000); /* Black-purple mix button */
+            color: #fff;
+            padding: 12px 40px;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .cta-section .btn:hover {
+            background: linear-gradient(to right, #4b0e5e, #1c1c1c);  /* Darker shade on hover */
+            transform: translateY(-4px);
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .footer a {
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .service-card i {
+            font-size: 30px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1>Welcome to MentorStartAi</h1>
+            <p>Your partner in creating successful startups using AI technology</p>
+            <a href="{{ url_for('ask') }}" class="btn btn-light">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- Question Form -->
+    <section class="py-5">
+        <div class="container">
+            <form method="POST" action="/">
+                <div class="mb-3">
+                    <label for="question" class="form-label">Question:</label>
+                    <input type="text" class="form-control" id="question" name="question" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Answer Section -->
+    <div class="container mt-4">
+        <h4>Answer:</h4>
+        <p>{{ answer|safe }}</p> <!-- Utilisation de |safe pour interpréter les balises HTML -->
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">What We Offer</h2>
+            <div class="row">
+                <!-- Service 1 -->
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <i class="bi bi-lightbulb"></i> <!-- Example icon -->
+                        <h4>AI-Powered Business Insights</h4>
+                        <p>We provide actionable insights using AI to help you make the best decisions for your startup.</p>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <i class="bi bi-briefcase"></i>
+                        <h4>Startup Planning</h4>
+                        <p>We guide you through every step of the startup process, from ideation to funding.</p>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <i class="bi bi-person-check"></i>
+                        <h4>Mentorship Programs</h4>
+                        <p>Get mentorship from experts in the field who can help you scale your startup successfully.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to start your journey?</h2>
+            <p>Join us today and receive AI-driven guidance for your startup!</p>
+            <a href="{{ url_for('ask') }}" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p>&copy; 2024 MentorStartAi. All rights reserved.</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
