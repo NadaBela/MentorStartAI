@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorStartAi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #bc96c7, #1c1c1c);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            background: linear-gradient(to right, #bc96c7, #1c1c1c);
+            padding: 20px 0;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .chat-container {
+            background: #f7f9fc;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 600px;
+        }
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .message {
+            margin-bottom: 15px;
+        }
+        .message.user {
+            text-align: right;
+        }
+        .message p {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin: 0;
+            font-size: 1rem;
+        }
+        .message.user p {
+            background-color: #3b0a45;
+            color: white;
+        }
+        .message.bot p {
+            background-color: #ddd;
+            color: #333;
+        }
+        .form-control {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-control:focus {
+            background: #fff;
+            color: #333;
+            border-color: #3b0a45;
+            box-shadow: 0 0 5px rgba(59, 10, 69, 0.5);
+        }
+        .btn {
+            background-color: #3b0a45;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #4b0e5e;
+        }
+        footer {
+            text-align: center;
+            background: linear-gradient(to right, #3b0a45, #000000);
+            padding: 10px 0;
+            color: white;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MentorStartAi</h1>
+    </header>
+
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-box" id="chatBox">
+                <!-- Chat messages will be dynamically loaded here -->
+                {% for message in chat_history %}
+                    <div class="message {{ message.sender }}">
+                        <p>{{ message.text }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <form id="chatForm" class="input-group">
+                <input type="text" name="user_input" id="userInput" class="form-control" placeholder="Type your message..." required>
+                <div class="input-group-append">
+                    <button type="button" class="btn" id="audioButton">🎤</button>
+                    <button type="submit" class="btn">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Elegant Chat Interface. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const chatForm = document.getElementById("chatForm");
+        const chatBox = document.getElementById("chatBox");
+        const userInput = document.getElementById("userInput");
+        const audioButton = document.getElementById("audioButton");
+
+        chatForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const message = userInput.value.trim();
+
+            if (!message) return;
+
+            // Display the user's message
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("message", "user");
+            userMessage.innerHTML = `<p>${message}</p>`;
+            chatBox.appendChild(userMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Clear the input field
+            userInput.value = "";
+
+            // Send the message to the backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_input: message }),
+            });
+
+            const data = await response.json();
+
+            // Display the bot's response
+            const botMessage = document.createElement("div");
+            botMessage.classList.add("message", "bot");
+            botMessage.innerHTML = `<p>${data.answer}</p>`;
+            chatBox.appendChild(botMessage);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        // Audio recording setup
+        const audioChunks = [];
+        let mediaRecorder;
+
+        audioButton.addEventListener("click", async () => {
+            if (!mediaRecorder || mediaRecorder.state === "inactive") {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+                    const formData = new FormData();
+                    formData.append("audio", audioBlob);
+
+                    await fetch("/upload-audio", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    console.log("Audio file uploaded successfully");
+                };
+
+                mediaRecorder.start();
+                audioButton.textContent = "Stop Recording";
+            } else {
+                mediaRecorder.stop();
+                audioButton.textContent = "🎤";
+            }
+        });
+    </script>
+</body>
+</html>
