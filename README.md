@@ -1,107 +1,82 @@
-# MentorStartAI
+# MentorStartAI: Empowering Moroccan Entrepreneurs
 
+## Overview
 
-MentorStartAi is an AI and NoSQL-based platform designed to assist aspiring entrepreneurs in creating their startups. This project provides personalized guidance, practical examples, and legal information tailored to the Moroccan context.
-
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Objectives](#objectives)
-3. [Technologies Used](#technologies-used)
-4. [Project Structure](#project-structure)
-5. [Web Scraping](#web-scraping)
-6. [Tests](#tests)
-7. [Conclusion](#conclusion)
+**MentorStartAI** is an AI-powered platform designed to assist aspiring entrepreneurs in Morocco with personalized guidance, localized legal advice, and practical examples to help them create successful startups. This tool combines cutting-edge technologies like AI, web scraping, and NoSQL databases to bridge the knowledge gap and make entrepreneurship accessible to everyone.
 
 ---
 
-## Introduction
+## Features
 
-Entrepreneurship is a key driver of economic growth and innovation. However, starting a business can be overwhelming, especially when navigating complex legal frameworks, understanding market dynamics, and developing a solid business model.
-
-MentorStartAi simplifies this process by providing AI-driven answers, examples of successful startups, and advice tailored to Moroccan laws. 
-
----
-
-## Objectives
-
-The main objectives of the project are:
-1. **Provide Step-by-Step Guidance**: Help users understand the key steps in starting a business.
-2. **Deliver Localized Legal Advice**: Ensure compliance with Moroccan regulations.
-3. **Present Practical Examples**: Inspire users with proven business models.
-4. **Leverage AI to Answer Queries**: Provide precise and tailored responses.
-5. **Enhance Accessibility**: Ensure the platform is intuitive even for users without technical expertise.
+- **Step-by-Step Guidance**: A clear roadmap for startup creation, from ideation to execution.
+- **Localized Legal Advice**: Insights into Moroccan laws and regulations.
+- **Practical Examples**: Real-world startup examples to inspire and guide users.
+- **AI-Powered Assistance**: Accurate, tailored answers to user queries using advanced NLP models.
+- **Accessible Design**: A user-friendly interface for individuals of all technical skill levels.
 
 ---
 
-## Technologies Used
+## Tools and Technologies
 
-### Backend
-- **Pinecone**: Manages and retrieves information using embeddings.
-- **MongoDB & MongoDB Atlas**: NoSQL databases used to store examples of startups.
+### **Backend**
+- **Pinecone**: Manages embeddings for efficient query processing.
+- **MongoDB & MongoDB Atlas**: NoSQL databases storing structured data and real-world startup examples.
 
-### Frontend
-- **Flask**: A lightweight web framework connecting the frontend to the AI and database.
-- **HTML, Bootstrap, JavaScript**: Used to create a modern, responsive, and user-friendly interface.
+### **Frontend**
+- **Flask**: Lightweight web framework connecting the frontend with backend and AI.
+- **HTML, Bootstrap, and JavaScript**: Responsive and interactive interface.
 
-### AI Model
-- **Gemini**: A pre-trained NLP model that understands user queries and provides accurate responses.
+### **AI Model**
+- **Gemini AI**: Processes natural language queries with advanced NLP.
+- **facebook/seamless-m4t-v2-large**: Provides Darija translation support.
 
-### Web Scraping
-- Collects real-world startup examples from reliable online sources. Extracted data is stored in MongoDB to provide diverse and relevant references.
+### **Web Scraping**
+- Collects real-world startup data to enrich the MongoDB database.
 
 ---
 
 ## Project Structure
 
-The project follows a modular structure to ensure maintainability and scalability.
+1. **Frontend Module**:
+- User interface for submitting questions and viewing results.
+- Built with HTML, Bootstrap, and JavaScript.
 
-1. **Frontend**: An interactive user interface that allows users to:
-   - Ask questions about starting a business.
-   - View step-by-step guides and legal procedures.
-   - Access examples of existing startups.
+2. **Backend Module**:
+- Query processing and database management.
+- Powered by Flask, Pinecone, and MongoDB.
 
-2. **Backend**: Handles:
-   - Query processing with Flask.
-   - Data retrieval using Pinecone embeddings for accurate responses.
-   - Database management with MongoDB.
+3. **AI Module**:
+- Processes and interprets user queries.
+- Provides precise, actionable answers.
 
-3. **AI Module**: Processes natural language queries using Gemini, identifies user needs, and delivers precise answers in conjunction with Pinecone.
-
-4. **Deployment**: All components are deployed on a secure server to ensure accessibility and seamless integration.
-
----
-
-## Web Scraping
-
-Web scraping was utilized to gather examples of startups from reliable online sources. The collected data enriches the platform’s database, providing users with varied and practical examples for guidance and inspiration.
+4. **Deployment and Integration**:
+- Securely deployed for accessibility and scalability.
 
 ---
 
-## Tests
+## Usage
 
-Detailed tests will validate:
-- The accuracy of AI-generated responses.
-- The performance and reliability of the backend and frontend modules.
-- The integration and functionality of all components.
-
----
-
-## Conclusion
-
-MentorStartAi demonstrates how cutting-edge technologies can create a powerful tool for aspiring entrepreneurs. By integrating AI with NoSQL databases, the platform offers a unique blend of personalized guidance, practical examples, and localized legal advice.
-
-Focusing on Morocco ensures the system addresses regional needs, making it a valuable resource for fostering entrepreneurship and innovation. With its scalable architecture and user-friendly design, the platform has the potential to support entrepreneurs worldwide and contribute to the global startup ecosystem.
+### Prerequisites
+- Python 3.8+
+- MongoDB
+- Flask
+- Necessary libraries listed in `requirements.txt`
 
 ---
 
 ## Authors
 
-- **Nada Belahcen**
-- **Aya Cherqi**
-- **Kaoutar Senhaji**
+This project was developed by:
+- **Hiba Benkaddour**
+- **Belahcen Nada**
+- **Cherqi Aya**
+- **Senhaji Kaoutar**
 
 ---
 
-## License
+### Installation
 
-This project is licensed under the [MIT License](LICENSE).
+Clone the repository:
+```bash
+git clone https://github.com/your-username/MentorStartAI.git
+cd MentorStartAI
